@@ -1,55 +1,39 @@
-import { getTrendingAllDay } from 'components/services/api';
+import { Loader } from 'components/Loader/Loader';
+import MovieList from 'components/MovieList/MovieList';
+import { getTrendingAllDay } from 'services/api';
+import { toastConfig } from 'services/toastconfig';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const toastConfig = {
-  position: 'top-center',
-  autoClose: 5000,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: 'colored',
-};
-
 const Home = () => {
   const [trandMovies, setTrandMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    async function getTranding() {
-      //! setIsLoading(true);
+    const fetchMovie = async () => {
       try {
-        const movies = await getTrendingAllDay();
-        setTrandMovies(movies);
+        setIsLoading(true);
+        const movies = await getTrendingAllDay('trending/movie/day');
+
+        setTrandMovies(movies.results);
       } catch (error) {
         toast.error(
           `Opps, some error occured. Please, try again later. Error: ${error.message}`,
           toastConfig
         );
       } finally {
-        //! setIsLoading(false);
+        setIsLoading(false);
       }
-    }
-    getTranding();
+    };
+    fetchMovie();
   }, []);
-
-  if (trandMovies) {
-    console.log('trandMovies.results: ', trandMovies.results);
-  }
 
   return (
     <>
+      {isLoading && <Loader />}
       <h1>Trending today</h1>
-
-      <ul>
-        {trandMovies &&
-          trandMovies.results.map(movie => (
-            <li key={movie.id}>{movie.original_title}</li>
-          ))}
-      </ul>
-
+      <MovieList movies={trandMovies} />
       <ToastContainer
         position="top-right"
         autoClose={5000}

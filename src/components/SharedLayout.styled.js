@@ -21,9 +21,10 @@ const StyledHeader = styled.header`
   }
 `;
 
-const StyledLogo = styled.p`
-  font-weight: 700;
-  margin: 0;
+const StyledHeadeList = styled.nav`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 `;
 
 const StyledLink = styled(NavLink)`
@@ -34,4 +35,4 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-export { StyledContainer, StyledHeader, StyledLogo, StyledLink };
+export { StyledContainer, StyledHeader, StyledHeadeList, StyledLink };
