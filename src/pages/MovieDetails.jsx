@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { lazy, useEffect, useRef, useState } from 'react';
+import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { Loader } from 'components/Loader/Loader';
 import { getMovieDetails } from 'services/api';
@@ -9,9 +9,9 @@ import {
   StyledInfoWrapper,
   StyledPosterImg,
 } from './MovieDetails.styled';
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
 
+const Cast = lazy(() => import('../components/Cast/Cast'));
+const Reviews = lazy(() => import('../components/Reviews/Reviews'));
 const { useParams } = require('react-router-dom');
 
 const toastConfig = {
@@ -29,6 +29,8 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [movieDetails, setMovieDetails] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     if (!movieId) return;
@@ -55,7 +57,7 @@ const MovieDetails = () => {
       {isLoading && <Loader />}
       {movieDetails !== null && (
         <section>
-          <button>Повернутися</button>
+          <Link to={backLinkHref.current}>Go back</Link>
           <StyledHeroWrapper>
             <StyledPosterImg
               src={`https://www.themoviedb.org/t/p/w500${movieDetails.poster_path}`}

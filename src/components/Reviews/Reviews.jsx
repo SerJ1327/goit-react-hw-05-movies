@@ -41,14 +41,12 @@ const Reviews = () => {
     fetchReviewsData();
   }, [movieId]);
 
-  console.log('reviewsData: ', reviewsData);
   return (
     <>
       {isLoading && <Loader />}
+
       <ul>
-        {!reviewsData ? (
-          <p>We don`t have any reviews for this movie</p>
-        ) : (
+        {reviewsData?.length ? (
           reviewsData.map(review => {
             return (
               <li key={review.id}>
@@ -57,6 +55,10 @@ const Reviews = () => {
               </li>
             );
           })
+        ) : (
+          <li>
+            <p>We don`t have any reviews for this movie</p>
+          </li>
         )}
       </ul>
 

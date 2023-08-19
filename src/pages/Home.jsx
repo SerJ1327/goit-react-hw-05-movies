@@ -33,7 +33,7 @@ const Home = () => {
     <>
       {isLoading && <Loader />}
       <h1>Trending today</h1>
-      <MovieList movies={trandMovies} />
+      <MovieList movies={trandMovies} way={'/movies/'} />
       <ToastContainer
         position="top-right"
         autoClose={5000}

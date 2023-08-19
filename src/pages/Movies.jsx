@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get('query');
-  console.log('searchTerm: ', searchTerm);
 
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +40,6 @@ const Movies = () => {
     setSearchParams({ query: searchValue });
   };
 
-  console.log('filteredMovies: ', filteredMovies);
   return (
     <>
       {isLoading && <Loader />}
@@ -56,7 +54,9 @@ const Movies = () => {
         <button type="submit">Search</button>
       </form>
 
-      {filteredMovies?.length > 0 && <MovieList movies={filteredMovies} />}
+      {filteredMovies?.length > 0 && (
+        <MovieList movies={filteredMovies} way={''} />
+      )}
       <ToastContainer
         position="top-right"
         autoClose={5000}

@@ -42,7 +42,6 @@ const Cast = () => {
     fetchCastData();
   }, [movieId]);
 
-  console.log('castDetails: ', castDetails);
   return (
     <>
       {isLoading && <Loader />}

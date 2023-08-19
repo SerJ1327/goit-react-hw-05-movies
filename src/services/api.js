@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const URL = 'https://api.themoviedb.org/3';
 
-// const API_KEY = 'b7837d8e8b9f5b9281e4f3836f40fc32';
 const BEARER =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiNzgzN2Q4ZThiOWY1YjkyODFlNGYzODM2ZjQwZmMzMiIsInN1YiI6IjY0NzhmMTllMGUyOWEyMDBkY2I5YmFkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Gm8FRVhZa5JYfHHhkK7gHuf4DwF_mvLWBXC6uzMdhLk';
 
@@ -35,7 +34,6 @@ export async function getTrendingAllDay(currentWay, page = 1) {
   return fetchMovies(options);
 }
 
-// -------------------------------------------------------------
 export async function getSearchMovies(
   currentWay,
   query,
@@ -50,7 +48,6 @@ export async function getSearchMovies(
   });
   return fetchMovies(options);
 }
-// -------------------------------------------------------------
 
 export async function getMovieDetails(currentWay) {
   const options = generateOption(currentWay, { language });
